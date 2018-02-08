@@ -5,12 +5,17 @@
 */
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
 int main(){
 
-  /* Code Here */
+  ifstream file;
+  file.open("/Users/angel/Desktop/ITC/4 Semestre/Diseño de Algoritmos/TopTec/1028---All-in-All-TOP-TEC/file.txt");
+  string text;
+  file >> text;
+  cout << "archivo " << text << endl ;
 
   return 0;
 }
