@@ -5,43 +5,42 @@
 */
 
 #include <iostream>
-#include <fstream>
+//#include <fstream>
 #include <string>
 
 using namespace std;
 
 int main(){
-
-  ifstream file; //aqui guardo el archivo
-  file.open("/Users/angel/Desktop/ITC/4 Semestre/Diseño de Algoritmos/TopTec/1028---All-in-All-TOP-TEC/file.txt");
-  string normal, encrypted; //solo para leer el string y el encryptado
-  do{
-    file >> normal >> encrypted;
-    if(normal.size() == encrypted.size()){//the strings size are equal thus they are not encrypted
-      cout << "NO" << endl;
-    }else{
-      int pos = encrypted.find(normal);
-      if(pos >= 0 && normal == encrypted.substr(pos, normal.size())){//esta encadenado
-        cout << "YES" << endl;
+    int Espacio;
+    string completo, normal, encrypted; //solo para leer el string y el encryptado
+    while(getline(cin, completo)){
+      Espacio = completo.find(" ");//encuentra la separacion de los dos strings
+      normal = completo.substr(0, Espacio);//remueve el primer strings
+      encrypted = completo.substr(Espacio);//remueve el ultimo string
+      if(normal.size() == encrypted.size()){//the strings size are equal thus they are not encrypted
+        cout << "NO" << endl;
       }else{
-        int Arreglo[normal.size()];
-        bool ordenados = true;
-        for(int i = 0; i < normal.size(); i++){//para saber las posiciones del encryptado
-          Arreglo[i] = encrypted.find(normal[i]);
-        }
-        for(int i = 0; i < normal.size()-1; i++){//para checar si estan bien organizados
-          if(Arreglo[i] > Arreglo[i+1]){
-            ordenados = false;
-          }
-        }
-        if(!ordenados){
-          cout << "NO" << endl;
+        int pos = encrypted.find(normal);
+        if(pos >= 0 && normal == encrypted.substr(pos, normal.size())){//esta encadenado
+          cout << "YES" << endl;
         }else{
-          cout<< "YES" << endl;
+          int Arreglo[normal.size()];
+          bool ordenados = true;
+          for(int i = 0; i < normal.size(); i++){//para saber las posiciones del encryptado
+            Arreglo[i] = encrypted.find(normal[i]);
+          }
+          for(int i = 0; i < normal.size()-1; i++){//para checar si estan bien organizados
+            if(Arreglo[i] > Arreglo[i+1]){
+              ordenados = false;
+            }
+          }
+          if(!ordenados){
+            cout << "NO" << endl;
+          }else{
+            cout<< "YES" << endl;
+          }
         }
       }
     }
-  }while(!file.eof());//leee los ultimos dos strings dos veces
-
-  return 0;
-}
+    return 0;
+  }
